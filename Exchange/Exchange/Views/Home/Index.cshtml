@@ -1,0 +1,57 @@
+﻿@model Menjacnica
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+<!--<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script> -->
+<div class="text-center">
+    <h1 class="display-4">Dobrodosli u menjacnicu</h1>
+    <p>Konvertuj evro u funte </p>
+    <input type="text" id="prviBroj" />
+    <input type="text" asp-for="rates.GBP" id="drugiBroj"/>
+    <input type="button" onclick="promeni()" value="Konvertuj"/>
+    
+    <input type="submit" value="Upisi" id="Submit" class="btn btn-default" onclick="location.href='@Url.Action("Create", "Home")'" />
+
+</div>
+<div class="text-center">
+    <p>Konvertuj funte u evro</p>
+    <input type="text" id="f" />
+    <input type="text" id="e"/>
+    <input type="button" onclick="funta()" value="Konvertuj"/>
+    <input type="submit" value="Upisi" id="Submit" class="btn btn-default" onclick="location.href='@Url.Action("Create", "Home")'" />
+
+</div>
+<script type="text/javascript">
+function promeni() {
+    var prviBroj = $("#prviBroj").val();
+    $.ajax({
+        type: 'GET',
+        url: '/Home/Suma/' +'?a='+prviBroj,
+        success: function(data) {
+            console.log(data);
+            $("#drugiBroj").val(data);
+        },
+        error: function(ex) {
+            alert("Greska");
+        }
+
+    });
+}
+function funta() {
+    var prviBroj = $("#f").val();
+    $.ajax({
+        type: 'GET',
+        url: '/Home/Funta/' +'?a='+prviBroj,
+        success: function(data) {
+            console.log(data);
+            $("#e").val(data);
+        },
+        error: function(ex) {
+            alert("Greska");
+        }
+
+    });
+}
+
+</script>
